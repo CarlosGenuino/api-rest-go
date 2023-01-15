@@ -1,0 +1,18 @@
+version: '3'
+networks:
+  person-net:
+services:
+  personas-db:
+    container_name: personas-db
+    image: postgres:14-alpine
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=personas
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_USER=develop
+    networks:
+      - person-net
+    volumes:
+    - ./migration/docker-database-initial.sql:/docker-entrypoint-initdb.d/docker-database-initial.sql
